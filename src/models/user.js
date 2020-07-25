@@ -22,11 +22,6 @@ const User = mongoose.model("User", {
     minlength: 8,
     required: false,
     trim: true,
-    validate(value) {
-      if (value.toLowercase().includes("password")) {
-        throw new Error('Password mustn\'t contain "password"');
-      }
-    },
   },
   age: {
     type: Number,
