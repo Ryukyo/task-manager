@@ -1,6 +1,6 @@
 const express = require("express");
-const Task = require("./models/task");
-const { findByIdAndUpdate } = require("./models/user");
+// const Task = require("./models/task");
+// const { findByIdAndUpdate } = require("./models/user");
 require("./db/mongoose");
 const userRouter = require("./routers/user");
 const taskRouter = require("./routers/task");
