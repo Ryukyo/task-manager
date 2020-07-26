@@ -12,7 +12,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "seed": "node src/seeder.js"
+    "sSeed": "node src/seeder.js",
+    "cSeed": "node src/db/db.js"
   },
   "keywords": [],
   "author": "Florian Fejer (https://github.com/Ryukyo)",

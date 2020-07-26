@@ -3,12 +3,36 @@ const Task = require("../models/task");
 const auth = require("../middleware/auth");
 const router = new express.Router();
 
+// GET /tasks?completed=true&limit=5&skip=0&sortBy=createdAt_asc
 router.get("/tasks", auth, async (req, res) => {
+  const limit = parseInt(req.query.limit);
+  const skip = parseInt(req.query.skip);
+  const query = {};
+  const sort = {};
+
+  query.owner = req.user._id;
+  console.log(req.query);
+
+  if (req.query.completed) {
+    query.completed = req.query.completed;
+  }
+
+  if (req.query.sortBy) {
+    const [sortField, sortDirection] = req.query.sortBy.split("_");
+    sort[sortField] = sortDirection;
+  }
+
   try {
-    const tasks = await Task.find({ owner: req.user._id });
-    res.send(tasks);
+    const tasksCount = await Task.find(query).countDocuments();
+    const tasks = await Task.find(query).sort(sort).skip(skip).limit(limit);
+    res.send({
+      results: tasks,
+      skip,
+      limit: req.query.limit || 0,
+      totalPages: Math.ceil(tasksCount / req.query.limit) || 1,
+    });
   } catch (error) {
-    res.status(400).send(error);
+    res.status(500).send(error);
   }
 });
 

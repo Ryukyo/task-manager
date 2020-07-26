@@ -3,12 +3,12 @@ const { Seeder } = require("mongo-seeding");
 
 const config = {
   database: {
-    name: "task-manager",
+    name: "task-manager-api",
   },
   dropDatabase: true,
 };
 const seeder = new Seeder(config);
-const collections = seeder.readCollectionsFromPath(path.resolve("./seeds"), {
+const collections = seeder.readCollectionsFromPath(path.resolve("./src/seeds"), {
   extensions: ["ts", "js", "json"],
   transformers: [Seeder.Transformers.replaceDocumentIdWithUnderscoreId],
 });
