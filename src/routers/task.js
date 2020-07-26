@@ -11,7 +11,6 @@ router.get("/tasks", auth, async (req, res) => {
   const sort = {};
 
   query.owner = req.user._id;
-  console.log(req.query);
 
   if (req.query.completed) {
     query.completed = req.query.completed;

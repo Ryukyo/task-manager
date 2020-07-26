@@ -1,30 +1,12 @@
 const express = require("express");
 const User = require("../models/user");
 const auth = require("../middleware/auth");
+const path = require("path");
 const router = new express.Router();
 
 router.get("/users/me", auth, async (req, res) => {
   res.send(req.user);
-  /* try {
-    const users = await User.find({});
-    res.send(users);
-  } catch (error) {
-    res.status(500).send(error);
-  } */
 });
-
-// Shouldn't be possible to get access to other user data
-/* router.get("/users/:id", async (req, res) => {
-  const _id = req.params.id;
-
-  try {
-    const user = await User.findById(_id);
-    if (!user) return res.status(404).send();
-    res.send(user);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-}); */
 
 router.post("/users", async (req, res) => {
   const user = new User(req.body);
@@ -32,7 +14,8 @@ router.post("/users", async (req, res) => {
   try {
     await user.save();
     const token = await user.generateAuthToken();
-    res.status(201).send({ user, token });
+    res.cookie("auth_token", token);
+    res.status(201).res.sendFile(path.resolve(__dirname, "..", "views", "private.html"));
   } catch (error) {
     res.status(400).send(error);
   }
@@ -43,7 +26,8 @@ router.post("/users/login", async (req, res) => {
     const user = await User.findByCredentials(req.body.email, req.body.password);
     const token = await user.generateAuthToken();
 
-    res.send({ user, token });
+    res.cookie("auth_token", token);
+    res.sendFile(path.resolve(__dirname, "..", "views", "private.html"));
   } catch (error) {
     res.status(400).send();
   }
