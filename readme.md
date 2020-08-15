@@ -2,9 +2,14 @@
   <img src="https://poloandtweed.com/wp-content/uploads/2019/07/Tips-to-Managing-Tasks.jpg" width="600" height="400"/>
 </div>
 
-# Task Manager API Using MongoDB, mongoose, and Node.js
+# Task Manager API
 
-This was created during my time as a student at Code Chrysalis
+This was created during my time as a student at Code Chrysalis.
+
+Main technologies that have been used include:
+* Node.js with express server
+* MongoDB
+* mongoose
 
 ## Features
 
